@@ -49,10 +49,6 @@ def main():
     whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
     cg = ChessGame()
     cg.boardToList()
-    print(cg.boardToList())
-
-    #vaziri Code
-
     pg.init()
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     clock = pg.time.Clock()
@@ -71,6 +67,7 @@ def main():
             elif e.type == pg.MOUSEBUTTONUP:
                 if cg.whiteToMove == whoAmI:
                     break
+                
                 loc = pg.mouse.get_pos()
                 column = loc[0] // SQ_SIZE
                 row = loc[1] // SQ_SIZE
@@ -82,8 +79,9 @@ def main():
                     usrClick.append(sqSelect)
                 if len(usrClick) == 2:
                     move = Move(usrClick[0], usrClick[1], cg.boardToList())
-                    print(move.getChessNotation())
                     cg.makeMove(chess.Move.from_uci(move.getChessNotation()))
+                    sqSelect = ()
+                    usrClick = []
 
                 
         d_game_state(screen, cg.boardToList())
