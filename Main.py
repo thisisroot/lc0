@@ -75,7 +75,7 @@ def main():
                     sqSelect = (row, column)
                     usrClick.append(sqSelect)
                 
-        d_game_state(screen, cg.board)
+        d_game_state(screen, cg.boardToList())
         clock.tick(MAX_FPS)
         pg.display.flip()
 

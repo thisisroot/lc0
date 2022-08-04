@@ -27,10 +27,12 @@ class ChessGame:
         s = str(self.board)
         boardList = []
         x = []
-        for i in s:
-            if i != " " and i != "\n":
-                x.append(i)
-            if i == "\n":
+        for i in range(len(s)):
+            if s[i] != " " and s[i] != "\n":
+                x.append(s[i])
+            if s[i] == "\n":
                 boardList.append(x)
                 x = []
+            if i == len(s) - 1:
+                boardList.append(x)
         return boardList
