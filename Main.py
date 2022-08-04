@@ -10,7 +10,7 @@ import pygame as pg
 
 WIDTH = HEIGHT = 512
 DIMENSION = 8
-SQ_SIZE = HEIGHT // WIDTH
+SQ_SIZE = HEIGHT // DIMENSION
 MAX_FPS = 15
 IMAGES = {}
 
@@ -29,6 +29,8 @@ def d_game_state(screen, board):
     d_piece(screen, board)
     
 def d_board(screen):
+    print(SQ_SIZE)
+    print(DIMENSION)
     colors = [pg.Color("white"), pg.Color("gray")]
     for r in range(DIMENSION):
         for c in range(DIMENSION):
@@ -52,7 +54,7 @@ def main():
     Images()
     activeness = True
     while activeness:
-
+    
         for e in pg.event.get():
             if e.type == pg.QUIT:
                 activeness = False
