@@ -1,3 +1,4 @@
+from tkinter.tix import IMAGE
 import chess
 import random
 from ChessGame import ChessGame
@@ -29,19 +30,24 @@ def d_game_state(screen, board):
     
 def d_board(screen):
     colors = [pg.Color("white"), pg.Color("gray")]
-    for r in range(DIMENSION):
-        for c in range(DIMENSION):
-            color = colors [((r + c) % 2)]
-            pg.draw.rect(screen, color, pg.Rect(c*SQ_SIZE, r*SQ_SIZE, SQ_SIZE, SQ_SIZE))
+    for row in range(DIMENSION):
+        for column in range(DIMENSION):
+            color = colors [((row + column) % 2)]
+            pg.draw.rect(screen, color, pg.Rect(column*SQ_SIZE, row*SQ_SIZE, SQ_SIZE, SQ_SIZE))
     
     
     
-def d_piece(screen, board):pass
-    
+def d_piece(screen, board):
+    for row in range(DIMENSION):
+        for column in range(DIMENSION):
+            piece = board[row][column]
+            if piece != '.':
+                screen.blit(IMAGES[piece], pg.Rect(column*SQ_SIZE, row*SQ_SIZE, SQ_SIZE, SQ_SIZE))
 def main():
     print("<-------- Welcome To LC0 -------->")
     whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
     cg = ChessGame()
+    print(str(cg.board))
     #vaziri Code
 
     pg.init()
