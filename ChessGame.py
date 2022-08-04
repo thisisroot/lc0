@@ -36,3 +36,12 @@ class ChessGame:
             if i == len(s) - 1:
                 boardList.append(x)
         return boardList
+    
+class Move():
+    def __init__(self, startsq, endsq, board):
+        self.startRow = startsq[0]
+        self.startCol = startsq[1]
+        self.endRow = endsq[0]
+        self.endCol = endsq[1]
+        self.pieceMoved = board[self.startRow][self.startCol]
+        self.pieceCaptured = board[self.endRow][self.endCol]

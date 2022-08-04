@@ -74,6 +74,8 @@ def main():
                 else:
                     sqSelect = (row, column)
                     usrClick.append(sqSelect)
+                if len(usrClick) == 2:
+                    pass
                 
         d_game_state(screen, cg.boardToList())
         clock.tick(MAX_FPS)
