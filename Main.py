@@ -4,7 +4,6 @@ from ChessGame import ChessGame
 
 from Chuck import Chuck
 from Player import Player
-from Visual import screen
 import pygame as pg
 
 
@@ -29,8 +28,6 @@ def d_game_state(screen, board):
     d_piece(screen, board)
     
 def d_board(screen):
-    print(SQ_SIZE)
-    print(DIMENSION)
     colors = [pg.Color("white"), pg.Color("gray")]
     for r in range(DIMENSION):
         for c in range(DIMENSION):
@@ -61,9 +58,6 @@ def main():
         d_game_state(screen, cg.board)
         clock.tick(MAX_FPS)
         pg.display.flip()
-
-
-
 
         #showBoard(cg.board)
         # if whoAmI == cg.whiteToMove:
