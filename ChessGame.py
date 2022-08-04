@@ -12,6 +12,10 @@ class ChessGame:
     def makeMove(self, move):
         if move in self.board.legal_moves:
             self.board.push(chess.Move.from_uci(str(move)))
+            if(self.whiteToMove):
+                print("White : " + str(move))
+            else : 
+                print("Black : " + str(move))
             self.whiteToMove = not self.whiteToMove
             return self.board
 

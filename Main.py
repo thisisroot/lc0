@@ -1,4 +1,5 @@
-
+from tkinter import *
+from tkinter import messagebox
 import chess
 import random
 from ChessGame import ChessGame
@@ -49,7 +50,6 @@ def main():
     whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
     cg = ChessGame()
     cg.boardToList()
-    print(cg.legalMoves())
     pg.init()
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     clock = pg.time.Clock()
@@ -59,8 +59,16 @@ def main():
     sqSelect = ()
     usrClick = []
     while activeness:
+        if cg.board.outcome():
+            if cg.whiteToMove:
+                Tk().wm_withdraw() #to hide the main window
+                messagebox.showinfo('!','BLACK Wins')
+            else:
+                Tk().wm_withdraw() #to hide the main window
+                messagebox.showinfo('!','WHITE Wins')
+            break
         if cg.whiteToMove == whoAmI:
-            lc = Chuck(cg.board, whoAmI)
+            lc = Chuck(cg, whoAmI)
             cg.makeMove(lc.makeMove())
         for e in pg.event.get():
             if e.type == pg.QUIT:
@@ -88,16 +96,6 @@ def main():
         d_game_state(screen, cg.boardToList())
         clock.tick(MAX_FPS)
         pg.display.flip()
-
-        #showBoard(cg.board)
-        # if whoAmI == cg.whiteToMove:
-        #     lc = Chuck(cg.board, whoAmI)
-        #     cg.makeMove(lc.makeMove())
-        # else:
-        #     p = Player(cg.board, not whoAmI)
-        #     cg.makeMove(p.makeMove())
-        # if cg.isGameOver():
-        #     break
 
 if __name__ == "__main__":
     main()

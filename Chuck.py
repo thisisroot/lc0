@@ -3,8 +3,9 @@ import random
 
 class Chuck:
 
-    def __init__(self, board, whoAmI):
-        self.board = board
+    def __init__(self, cg, whoAmI):
+        self.cg = cg
+        self.board = cg.board
         self.whoAmI = whoAmI
 
     def makeMove(self):
@@ -12,7 +13,6 @@ class Chuck:
         return move
 
     def randomMove(self):
-        for move in self.board.legal_moves:
-            isTheMove = random.randint(0, 2)
-            if isTheMove:
-                return move
+        moves = self.cg.legalMoves()
+        move = moves[random.randint(0, len(moves)- 1)]
+        return chess.Move.from_uci(self.board.parse_san(move).uci())
