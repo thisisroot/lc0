@@ -13,11 +13,13 @@ def makeMove(board, whoAmI, chuckToMove):
     else:
         #its Player move
         board.push(chess.Move.from_uci(playerMove(board, whoAmI)))
+
 def chuckMove(board, whoAmI):
     for move in board.legal_moves:
         isTheMove = random.randint(0, 2)
         if isTheMove:
             return move
+
 def playerMove(board, whoAmI):
     move = ""
     isValidMove = False
@@ -33,17 +35,21 @@ def playerMove(board, whoAmI):
             
     return move
 
-print("<-------- Welcome To LC0 -------->")
-whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
-board = chess.Board()
-chuckToMove = whoAmI
-gameIsOn = True
-checkmate = False
-stalemate = False
-while gameIsOn:
-    showBoard(board)
-    makeMove(board, whoAmI, chuckToMove)
-    if checkmate or stalemate:
-        gameIsOn = False
-        break
-    chuckToMove = not chuckToMove
+def main():
+    print("<-------- Welcome To LC0 -------->")
+    whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
+    board = chess.Board()
+    chuckToMove = whoAmI
+    gameIsOn = True
+    checkmate = False
+    stalemate = False
+    while gameIsOn:
+        showBoard(board)
+        makeMove(board, whoAmI, chuckToMove)
+        if checkmate or stalemate:
+            gameIsOn = False
+            break
+        chuckToMove = not chuckToMove
+
+if __name__ == "__main__":
+    main()
