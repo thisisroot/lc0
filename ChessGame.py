@@ -37,6 +37,15 @@ class ChessGame:
                 boardList.append(x)
         return boardList
     
+    def legalMoves(self):
+        s = str(self.board.legal_moves)
+        for i in range(len(s)):
+            if s[i] == "(":
+                s = s[i+1:len(s)-2]
+                break
+        output = tuple(map(str, s.split(', ')))
+        return output
+    
 class Move():
     ranksToRow = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2, "7":1, "8":0}
     rowsToRanks = {v:k for k, v in ranksToRow.items()}

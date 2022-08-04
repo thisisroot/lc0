@@ -49,6 +49,7 @@ def main():
     whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
     cg = ChessGame()
     cg.boardToList()
+    print(cg.legalMoves())
     pg.init()
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     clock = pg.time.Clock()
