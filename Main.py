@@ -47,7 +47,6 @@ def main():
     print("<-------- Welcome To LC0 -------->")
     whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
     cg = ChessGame()
-    print(str(cg.board))
     #vaziri Code
 
     pg.init()
@@ -56,11 +55,23 @@ def main():
     screen.fill(pg.Color("white"))
     Images()
     activeness = True
+    sqSelect = ()
+    usrClick = []
     while activeness:
-    
         for e in pg.event.get():
             if e.type == pg.QUIT:
                 activeness = False
+            elif e.type == pg.MOUSEBUTTONUP:
+                loc = pg.mouse.get_pos()
+                column = loc[0] // SQ_SIZE
+                row = loc[1] // SQ_SIZE
+                if sqSelect == (row, column):
+                    sqSelect = ()
+                    usrClick = []
+                else:
+                    sqSelect = (row, column)
+                    usrClick.append(sqSelect)
+                
         d_game_state(screen, cg.board)
         clock.tick(MAX_FPS)
         pg.display.flip()
