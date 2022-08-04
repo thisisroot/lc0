@@ -32,9 +32,6 @@ def screen(board):
         clock.tick(MAX_FPS)
         pg.display.flip()
 
-    
-screen(1)
-
 def showBoard(board):
     print("<------------->")
     print(board)
