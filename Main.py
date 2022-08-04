@@ -2,6 +2,7 @@
 import chess
 import random
 from ChessGame import ChessGame
+from ChessGame import Move
 
 from Chuck import Chuck
 from Player import Player
@@ -61,10 +62,15 @@ def main():
     sqSelect = ()
     usrClick = []
     while activeness:
+        if cg.whiteToMove == whoAmI:
+            lc = Chuck(cg.board, whoAmI)
+            cg.makeMove(lc.makeMove())
         for e in pg.event.get():
             if e.type == pg.QUIT:
                 activeness = False
             elif e.type == pg.MOUSEBUTTONUP:
+                if cg.whiteToMove == whoAmI:
+                    break
                 loc = pg.mouse.get_pos()
                 column = loc[0] // SQ_SIZE
                 row = loc[1] // SQ_SIZE
@@ -75,7 +81,10 @@ def main():
                     sqSelect = (row, column)
                     usrClick.append(sqSelect)
                 if len(usrClick) == 2:
-                    pass
+                    move = Move(usrClick[0], usrClick[1], cg.boardToList())
+                    print(move.getChessNotation())
+                    cg.makeMove(chess.Move.from_uci(move.getChessNotation()))
+
                 
         d_game_state(screen, cg.boardToList())
         clock.tick(MAX_FPS)
