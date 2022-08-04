@@ -19,4 +19,6 @@ class ChessGame:
         if self.checkmate or self.stalemate:
             self.gameIsOn = False
             return True
-        
+    
+    def getBoard(self):
+        return self.board
