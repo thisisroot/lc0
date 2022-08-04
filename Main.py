@@ -1,4 +1,4 @@
-from tkinter.tix import IMAGE
+
 import chess
 import random
 from ChessGame import ChessGame
@@ -47,7 +47,8 @@ def main():
     print("<-------- Welcome To LC0 -------->")
     whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
     cg = ChessGame()
-    print(str(cg.board))
+    cg.boardToList()
+    print(cg.boardToList())
     #vaziri Code
 
     pg.init()

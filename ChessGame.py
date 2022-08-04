@@ -22,3 +22,15 @@ class ChessGame:
     
     def getBoard(self):
         return self.board
+
+    def boardToList(self):
+        s = str(self.board)
+        boardList = []
+        x = []
+        for i in s:
+            if i != " " and i != "\n":
+                x.append(i)
+            if i == "\n":
+                boardList.append(x)
+                x = []
+        return boardList
