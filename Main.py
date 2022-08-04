@@ -4,14 +4,15 @@ from ChessGame import ChessGame
 
 from Chuck import Chuck
 from Player import Player
-from Visual import showBoard
+from Visual import screen
 
 def main():
     print("<-------- Welcome To LC0 -------->")
     whoAmI = not bool(int(input("LC0 : Choose Your Color \n\tWhite => 1\n\tBlack => 0\nYou :  ")))
     cg = ChessGame()
+    screen(cg.board)
     while cg.gameIsOn:
-        showBoard(cg.board)
+        #showBoard(cg.board)
         if whoAmI == cg.whiteToMove:
             lc = Chuck(cg.board, whoAmI)
             cg.makeMove(lc.makeMove())
