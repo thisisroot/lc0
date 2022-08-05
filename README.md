@@ -74,7 +74,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -111,7 +110,7 @@ This is an example of how to list things you need to use the software and how to
 * pip
 * tkinter, chess, numpy, pygame
   ```sh
-  sudo apt install python3.8-tk
+  sudo apt install python3.x-tk
   pip install chess
   pip install numpy
   pip install pygame
@@ -131,7 +130,7 @@ git clone https://github.com/thisisroot/LittleChuck0.git
 
 
 
-<!-- ROADMAP -->
+<!-- FEATURES -->
 ## Features
 
 - [ ] Neural Network
@@ -175,23 +174,11 @@ Distributed under the Syn License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-lc0 - [@twitter_handle](https://twitter.com/twitter_handle)
+lc0 - [@twitter_handle](https://twitter.com/twitter)
 
 Project Link: [https://github.com/thisisroot/LittleChuck0](https://github.com/thisisroot/LittleChuck0)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -208,8 +195,8 @@ Project Link: [https://github.com/thisisroot/LittleChuck0](https://github.com/th
 [license-url]: https://github.com/thisisroot/LittleChuck0/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/
-[product-screenshot]: images/chuck.png
-[Python.org]: [https://img.shields.io/badge/Python-20232A?style=for-the-badge&logo=python&logoColor=61DAFB]
+[product-screenshot]: https://www.gamespot.com/a/uploads/original/1557/15576725/3818089-curse-of-chucky.jpeg
+[Python.org]: https://img.shields.io/badge/Python-20232A?style=for-the-badge&logo=python&logoColor=00000
 [Python-url]: https://python.org/
 [Chess-url]: https://python-chess.readthedocs.io/en/latest/#
 [python-chess]: https://img.shields.io/badge/Chess-20232A?style=for-the-badge&logo=lichess&logoColor=00000
