@@ -13,8 +13,6 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">LC0</h3>
-
   <p align="center">
     lc0 is a chess engine designed to bully.
     <br />
