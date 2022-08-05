@@ -169,7 +169,7 @@ Project Link: [https://github.com/thisisroot/LittleChuck0](https://github.com/th
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/
 [product-screenshot]: https://www.gamespot.com/a/uploads/original/1557/15576725/3818089-curse-of-chucky.jpeg
-[Python.org]: https://img.shields.io/badge/Python-20232A?style=for-the-badge&logo=python&logoColor=00000
+[Python.org]: https://img.shields.io/badge/Python-35495E?style=for-the-badge&logo=python&logoColor=00000
 [Python-url]: https://python.org/
 [Chess-url]: https://python-chess.readthedocs.io/en/latest/#
 [python-chess]: https://img.shields.io/badge/Chess-20232A?style=for-the-badge&logo=lichess&logoColor=00000
