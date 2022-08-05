@@ -79,7 +79,7 @@ Here is the instructions for running lc0 on your own machine.( A little bit dang
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Softwares : 
 * python > 3.8
 * pip
 * tkinter, chess, numpy, pygame
