@@ -1,35 +1,11 @@
-# LittleChuck0
-![alt text](https://www.gamespot.com/a/uploads/original/1557/15576725/3818089-curse-of-chucky.jpeg)
 
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
 <!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -84,7 +60,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-LC0 is a trained neural network chess engine built for being the G.O.A.T: `#lc0`, `LittleChuck0`, `twitter`
+LC0 is a trained neural network chess engine built for being the **G.O.A.T**: `#lc0`, `LittleChuck0`, `twitter`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -174,7 +150,7 @@ Distributed under the Syn License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-lc0 - [@twitter_handle](https://twitter.com/twitter)
+lc0 - [@twitter](https://twitter.com/twitter)
 
 Project Link: [https://github.com/thisisroot/LittleChuck0](https://github.com/thisisroot/LittleChuck0)
 
@@ -182,7 +158,6 @@ Project Link: [https://github.com/thisisroot/LittleChuck0](https://github.com/th
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/thisisroot/LittleChuck0.svg?style=for-the-badge
 [contributors-url]: https://github.com/thisisroot/LittleChuck0/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/thisisroot/LittleChuck0.svg?style=for-the-badge
