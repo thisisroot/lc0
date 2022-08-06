@@ -85,12 +85,16 @@ def rungame():
     usrClick = []
     while activeness:
         if cg.board.outcome():
-            if cg.whiteToMove:
-                Tk().wm_withdraw() #to hide the main window
-                messagebox.showinfo('!','BLACK Wins')
+            if cg.board.is_checkmate():
+                if cg.whiteToMove:
+                    Tk().wm_withdraw() #to hide the main window
+                    messagebox.showinfo('!','BLACK Wins')
+                else:
+                    Tk().wm_withdraw() #to hide the main window
+                    messagebox.showinfo('!','WHITE Wins')
             else:
                 Tk().wm_withdraw() #to hide the main window
-                messagebox.showinfo('!','WHITE Wins')
+                messagebox.showinfo('!','DRAW')
             break
         if cg.whiteToMove == WHOAMI:
             lc = Chuck(cg, WHOAMI)
