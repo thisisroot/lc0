@@ -2,10 +2,10 @@ from tkinter import *
 from tkinter import messagebox
 import chess
 import pygame_menu
-from ChessGame import ChessGame
-from ChessGame import Move
+from game.ChessGame import ChessGame
+from game.ChessGame import Move
 
-from Chuck import Chuck
+from engine.Chuck import Chuck
 import pygame as pg
 
 
@@ -120,3 +120,4 @@ def rungame():
         d_game_state(screen, cg.boardToList())
         clock.tick(MAX_FPS)
         pg.display.flip()
+    pg.quit()
