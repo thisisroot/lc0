@@ -18,6 +18,10 @@ class ChessGame:
                 print("Black : " + str(move))
             self.whiteToMove = not self.whiteToMove
             return self.board
+
+    def undoMove(self):
+        self.board.pop()
+        self.whiteToMove = not self.whiteToMove
     def isGameOver(self):
         if self.checkmate or self.stalemate:
             self.gameIsOn = False

@@ -117,6 +117,14 @@ def rungame():
                     cg.makeMove(chess.Move.from_uci(move.getChessNotation()))
                     sqSelect = ()
                     usrClick = []
+            elif e.type == pg.KEYDOWN:
+                if e.key == pg.K_z:
+                    cg.undoMove()
+                    cg.undoMove()
+                elif e.key == pg.K_r:
+                    cg = ChessGame()
+                    sqSelect = ()
+                    usrClick = [] 
         d_game_state(screen, cg.boardToList())
         clock.tick(MAX_FPS)
         pg.display.flip()

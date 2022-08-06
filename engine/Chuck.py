@@ -30,18 +30,23 @@ class Chuck:
         for move in moves:
             self.cg.board.push(move)
             opponentMoves = self.cg.legalMoves()
-            opponentMaxScore = -CHECKMATE
-            for om in opponentMoves:
-                self.cg.board.push(om)
-                if self.cg.board.is_checkmate():
-                    score = -turnMultiplier * CHECKMATE
-                elif self.cg.board.is_stalemate():
-                    score = STALEMATE
-                else:
-                    score = -turnMultiplier * self.scoreMaterial(self.cg.boardToList())
-                if score > opponentMaxScore:
-                    opponentMaxScore = score
-                self.cg.board.pop()
+            if self.cg.board.is_checkmate():
+                opponentMaxScore = -CHECKMATE
+            elif self.cg.board.is_stalemate():
+                opponentMaxScore = STALEMATE
+            else:
+                opponentMaxScore = -CHECKMATE
+                for om in opponentMoves:
+                    self.cg.board.push(om)
+                    if self.cg.board.is_checkmate():
+                        score = CHECKMATE
+                    elif self.cg.board.is_stalemate():
+                        score = STALEMATE
+                    else:
+                        score = -turnMultiplier * self.scoreMaterial(self.cg.boardToList())
+                    if score > opponentMaxScore:
+                        opponentMaxScore = score
+                    self.cg.board.pop()
             if opponentMaxScore < opponentMinMaxScore :
                 opponentMinMaxScore = opponentMaxScore
                 bestPlayerMove = move
