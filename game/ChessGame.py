@@ -18,7 +18,6 @@ class ChessGame:
                 print("Black : " + str(move))
             self.whiteToMove = not self.whiteToMove
             return self.board
-
     def isGameOver(self):
         if self.checkmate or self.stalemate:
             self.gameIsOn = False
@@ -48,7 +47,10 @@ class ChessGame:
                 s = s[i+1:len(s)-2]
                 break
         output = tuple(map(str, s.split(', ')))
-        return output
+        new_output = []
+        for o in output:
+            new_output.append(chess.Move.from_uci(self.board.parse_san(o).uci()))
+        return tuple(new_output)
     
 class Move():
     ranksToRow = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2, "7":1, "8":0}
