@@ -105,7 +105,7 @@ class Chuck:
         whiteTup = ("P", "N", "B", "Q", "R", "K")
         bkackTup = ("p", "n", "b", "q", "r", "k")
         score = 0
-        for row in board:
+        for row in cgG.boardToList():
             for square in row:
                 if square in whiteTup:
                     score += pieceScore[square]
