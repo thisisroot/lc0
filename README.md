@@ -88,6 +88,7 @@ Softwares :
   pip install chess
   pip install numpy
   pip install pygame
+  pip install pygame-menu -U
   ```
 
 ### Installation
@@ -148,7 +149,7 @@ Distributed under the Syn License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-lc0 - [@twitter](https://twitter.com/twitter)
+lc0 - [@LittleChuck0](https://twitter.com/LittleChuck0)
 
 Project Link: [https://github.com/thisisroot/LittleChuck0](https://github.com/thisisroot/LittleChuck0)
 
