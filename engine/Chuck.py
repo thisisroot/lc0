@@ -26,6 +26,7 @@ class Chuck:
         opponentMinMaxScore = CHECKMATE
         bestPlayerMove = None
         moves = self.cg.legalMoves()
+        random.shuffle(moves)
         for move in moves:
             self.cg.board.push(move)
             opponentMoves = self.cg.legalMoves()

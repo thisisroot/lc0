@@ -50,7 +50,7 @@ class ChessGame:
         new_output = []
         for o in output:
             new_output.append(chess.Move.from_uci(self.board.parse_san(o).uci()))
-        return tuple(new_output)
+        return new_output
     
 class Move():
     ranksToRow = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2, "7":1, "8":0}
