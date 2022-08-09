@@ -27,8 +27,9 @@ def Images():
 
 
 
-def d_game_state(screen, board):
+def d_game_state(cg, screen, board, sqSelected):
     d_board(screen)
+    highlightSquares(screen, cg, sqSelected)
     d_piece(screen, board)
     
 def d_board(screen):
@@ -68,6 +69,26 @@ def menu():
     menu.add.button('Quit', pygame_menu.events.EXIT)
 
     menu.mainloop(surface)
+
+def highlightSquares(screen, cgG, sqSelected):
+    piecesB = ['b', 'k', 'n', 'p', 'q', 'r']
+    piecesW =  ['B', 'K', 'N','P','Q','R']
+    if sqSelected != ():
+        r, c = sqSelected
+        board = cgG.boardToList()
+        if board[r][c] in (piecesW if cgG.whiteToMove else piecesB):
+            s = pg.Surface((SQ_SIZE, SQ_SIZE))
+            s.set_alpha(100)
+            s.fill(pg.Color('blue'))
+            screen.blit(s, ((c*SQ_SIZE, r*SQ_SIZE)))
+            s.fill(pg.Color('yellow'))
+            moves = cgG.getMovesOfPiece(board[r][c], r, c)
+            print(board[r][c])
+            print(moves)
+            if moves != None and moves != []:
+                for move in moves:
+                    x, y = cgG.notationToPosition(move)
+                    screen.blit(s, (SQ_SIZE*x, SQ_SIZE*y))
 
 def rungame():
     global WHOAMI
@@ -129,7 +150,7 @@ def rungame():
                     cg = ChessGame()
                     sqSelect = ()
                     usrClick = [] 
-        d_game_state(screen, cg.boardToList())
+        d_game_state(cg, screen, cg.boardToList(), sqSelect)
         clock.tick(MAX_FPS)
         pg.display.flip()
     pg.quit()
