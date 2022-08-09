@@ -30,6 +30,7 @@ def Images():
 def d_game_state(cg, screen, board, sqSelected):
     d_board(screen)
     highlightSquares(screen, cg, sqSelected)
+    highlightCheck(screen, cg)
     d_piece(screen, board)
     
 def d_board(screen):
@@ -83,12 +84,21 @@ def highlightSquares(screen, cgG, sqSelected):
             screen.blit(s, ((c*SQ_SIZE, r*SQ_SIZE)))
             s.fill(pg.Color('yellow'))
             moves = cgG.getMovesOfPiece(board[r][c], r, c)
-            print(board[r][c])
-            print(moves)
             if moves != None and moves != []:
                 for move in moves:
                     x, y = cgG.notationToPosition(move)
                     screen.blit(s, (SQ_SIZE*x, SQ_SIZE*y))
+def highlightCheck(screen, cgG):
+    s = pg.Surface((SQ_SIZE, SQ_SIZE))
+    s.set_alpha(100)
+    s.fill(pg.Color('red'))
+    if cgG.board.is_attacked_by(chess.BLACK, cgG.getSqNumber(cgG.getKingsPosition(True))):
+        x, y = cgG.notationToPosition(cgG.getKingsPosition(True))
+        screen.blit(s, (SQ_SIZE*x, SQ_SIZE*y))
+    elif cgG.board.is_attacked_by(chess.WHITE, cgG.getSqNumber(cgG.getKingsPosition(False))):
+        x, y = cgG.notationToPosition(cgG.getKingsPosition(False))
+        screen.blit(s, (SQ_SIZE*x, SQ_SIZE*y))
+
 
 def rungame():
     global WHOAMI

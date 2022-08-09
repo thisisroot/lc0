@@ -67,7 +67,6 @@ class ChessGame:
         output = []
         moves = self.legalMoves()
         position = self.colsToFiles[c] + self.rowsToRanks[r]
-        print(position)
         if moves != []:
             for i in moves:
                 m=str(i)
@@ -85,6 +84,19 @@ class ChessGame:
 
     def notationToPosition(self, s):
         return (self.filesToCols[s[0]], self.ranksToRow[s[1]])
+
+    def getKingsPosition(self, white):
+        board = self.boardToList()
+        for i in range(8):
+            for j in range(8):
+                if board[i][j] == ("K" if white else "k"):
+                    return self.colsToFiles[j] + self.rowsToRanks[i]
+    
+    def getSqNumber(self, s):
+        row = {"1":0, "2":1, "3":2, "4":3,"5":4, "6":5, "7":6, "8":7}
+        col = {"a":0, "b": 1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
+        return (row[s[1]] * 8) + col[s[0]]
+
 class Move():
     ranksToRow = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2, "7":1, "8":0}
     rowsToRanks = {v:k for k, v in ranksToRow.items()}
