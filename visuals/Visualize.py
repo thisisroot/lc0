@@ -141,7 +141,10 @@ def rungame():
                 loc = pg.mouse.get_pos()
                 column = loc[0] // SQ_SIZE
                 row = loc[1] // SQ_SIZE
-                if sqSelect == (row, column):
+                if len(usrClick) == 0 and cg.boardToList()[row][column] == ".":
+                    sqSelect = ()
+                    usrClick = []
+                elif sqSelect == (row, column):
                     sqSelect = ()
                     usrClick = []
                 else:
