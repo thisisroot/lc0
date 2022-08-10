@@ -9,15 +9,16 @@ class Chuck:
         self.whoAmI = whoAmI
         self.DEPTH = 2
     def makeMove(self):
-        #move = self.bestMove()
-        move = self.findBestMoveMinMax(self.cg, self.cg.legalMoves())
+        move = self.bestMove()
+        #move = self.findBestMoveMinMax(self.cg, self.cg.legalMoves())
         if move == None:
             return self.randomMove() 
         return move
 
     def randomMove(self):
         moves = self.cg.legalMoves()
-        move = moves[random.randint(0, len(moves))]
+        if len(moves) != 0:
+            move = moves[random.randint(0, len(moves))]
         return move
     
     def bestMove(self):
@@ -27,10 +28,14 @@ class Chuck:
         opponentMinMaxScore = CHECKMATE
         bestPlayerMove = None
         moves = self.cg.legalMoves()
-        random.shuffle(moves)
         for move in moves:
             self.cg.board.push(move)
             opponentMoves = self.cg.legalMoves()
+            if len(opponentMoves) == 0 or opponentMoves is None:
+                if self.cg.board.is_check():
+                    opponentMaxScore = -CHECKMATE
+                else :
+                    opponentMaxScore = STALEMATE
             if self.cg.board.is_checkmate():
                 opponentMaxScore = -CHECKMATE
             elif self.cg.board.is_stalemate():
