@@ -152,6 +152,7 @@ def rungame():
                     usrClick.append(sqSelect)
                 if len(usrClick) == 2:
                     move = Move(usrClick[0], usrClick[1], cg.boardToList())
+                    print(cg.legalMoves())
                     cg.makeMove(chess.Move.from_uci(move.getChessNotation()))
                     sqSelect = ()
                     usrClick = []

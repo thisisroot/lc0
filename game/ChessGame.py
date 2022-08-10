@@ -1,3 +1,4 @@
+import random
 from turtle import position
 import chess
 
@@ -60,7 +61,9 @@ class ChessGame:
         new_output = []
         if output != [] and output is not None:
             for o in output:
-                new_output.append(chess.Move.from_uci(self.board.parse_san(o).uci()))
+                if o != '':
+                    new_output.append(chess.Move.from_uci(self.board.parse_san(o).uci()))
+        random.shuffle(new_output)
         return new_output
     
     def getMovesOfPiece(self, p, r, c):
@@ -79,7 +82,6 @@ class ChessGame:
         for i in range(8):
             for j in range(8):
                 if board[i][j] == p:
-                    print(i, j)
                     return self.colsToFiles[j] + self.rowsToRanks[i]
 
     def notationToPosition(self, s):
