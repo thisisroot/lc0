@@ -9,11 +9,11 @@ class Chuck:
         self.whoAmI = whoAmI
         self.DEPTH = 2
     def makeMove(self):
-        #move = self.bestMove()
+        move = self.bestMove()
         #move = self.findBestMoveMinMax(self.cg, self.cg.legalMoves())
-        #if move == None:
-        return self.randomMove() 
-        #return move
+        if move == None:
+            return self.randomMove() 
+        return move
 
     def randomMove(self):
         moves = self.cg.legalMoves()
