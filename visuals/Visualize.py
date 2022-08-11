@@ -83,7 +83,7 @@ def highlightSquares(screen, cgG, sqSelected):
             s.fill(pg.Color('blue'))
             screen.blit(s, ((c*SQ_SIZE, r*SQ_SIZE)))
             s.fill(pg.Color('yellow'))
-            moves = cgG.getMovesOfPiece(board[r][c], r, c)
+            moves = cgG.getMovesOfPiece(r, c)
             if moves != None and moves != []:
                 for move in moves:
                     x, y = cgG.notationToPosition(move)
@@ -152,8 +152,13 @@ def rungame():
                     usrClick.append(sqSelect)
                 if len(usrClick) == 2:
                     move = Move(usrClick[0], usrClick[1], cg.boardToList())
-                    print(cg.legalMoves())
-                    cg.makeMove(chess.Move.from_uci(move.getChessNotation()))
+                    #making promotion legal
+                    m = move.getChessNotation()
+                    movesofP = cg.getMovesOfPieceByNotation(m[:2])
+                    for i in movesofP:
+                        if i[-1] == 'q':
+                            m = i
+                    cg.makeMove(chess.Move.from_uci(m))
                     sqSelect = ()
                     usrClick = []
             elif e.type == pg.KEYDOWN:

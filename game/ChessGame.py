@@ -66,7 +66,7 @@ class ChessGame:
         random.shuffle(new_output)
         return new_output
     
-    def getMovesOfPiece(self, p, r, c):
+    def getMovesOfPiece(self, r, c):
         output = []
         moves = self.legalMoves()
         position = self.colsToFiles[c] + self.rowsToRanks[r]
@@ -77,6 +77,16 @@ class ChessGame:
                     output.append(m[2:])
         return output
         
+    def getMovesOfPieceByNotation(self, position):
+        output = []
+        moves = self.legalMoves()
+        if moves != []:
+            for i in moves:
+                m=str(i)
+                if m[:2] == position:
+                    output.append(m)
+        return output
+
     def getPositionOfPiece(self, p):
         board = self.boardToList()
         for i in range(8):
