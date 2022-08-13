@@ -7,17 +7,17 @@ class Chuck:
         self.cg = cg
         self.board = cg.board
         self.whoAmI = whoAmI
-        self.DEPTH = 2
+        self.DEPTH = 8
     def makeMove(self):
-        move = self.bestMove()
-        #move = self.findBestMoveMinMax(self.cg, self.cg.legalMoves())
+        #move = self.bestMove()
+        move = self.findBestMoveMinMax(self.cg, self.cg.legalMoves())
         if move == None:
             return self.randomMove() 
         return move
+        #return self.randomMove()
 
     def randomMove(self):
         moves = self.cg.legalMoves()
-        print(len(moves))
         if len(moves) != 0:
             move = moves[random.randint(0, len(moves)-1)]
         return move

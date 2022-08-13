@@ -65,7 +65,7 @@ def menu():
                        theme=pygame_menu.themes.THEME_DARK)
 
     menu.add.text_input('Name :', default='Root')
-    menu.add.selector('Difficulty :', [('White', 0), ('Black', 1)], onchange=set_piece_color)
+    menu.add.selector('Color :', [('White', 0), ('Black', 1)], onchange=set_piece_color)
     menu.add.button('Play', rungame)
     menu.add.button('Quit', pygame_menu.events.EXIT)
 
@@ -156,7 +156,7 @@ def rungame():
                     m = move.getChessNotation()
                     movesofP = cg.getMovesOfPieceByNotation(m[:2])
                     for i in movesofP:
-                        if i[-1] == 'q':
+                        if i == m+'q':
                             m = i
                     cg.makeMove(chess.Move.from_uci(m))
                     sqSelect = ()
