@@ -66,6 +66,13 @@ class ChessGame:
                     new_output.append(chess.Move.from_uci(self.board.parse_san(o).uci()))
         random.shuffle(new_output)
         return new_output
+
+    def removePromotion(self, moves):
+        output = []
+        for i in moves:
+            if len(str(i)) != 5:
+                output.append(i)
+        return output
     
     def getMovesOfPiece(self, r, c):
         output = []
