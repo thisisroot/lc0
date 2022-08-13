@@ -7,10 +7,10 @@ class Chuck:
         self.cg = cg
         self.board = cg.board
         self.whoAmI = whoAmI
-        self.DEPTH = 7
+        self.DEPTH = 2
     def makeMove(self):
         #move = self.bestMove()
-        move = self.findBestMoveMinMax(self.cg, self.cg.removePromotion(self.cg.legalMoves()))
+        move = self.findBestMoveMinMax(self.cg, self.cg.legalMoves())
         if move == None:
             return self.randomMove() 
         return move
@@ -76,11 +76,8 @@ class Chuck:
         if whiteToMove:
             maxScore = -CHECKMATE
             for move in legalmovesG:
-                if cgG.board.is_stalemate():
-                    maxScore = 0
-                    return maxScore
                 cgG.makeMove(move)
-                nextMoves = cgG.removePromotion(cgG.legalMoves())
+                nextMoves = cgG.legalMoves()
                 score = self.findMoveMinMax(cgG, nextMoves, depth - 1, not whiteToMove)
                 if score > maxScore:
                     maxScore = score
@@ -91,11 +88,8 @@ class Chuck:
         else :
             minScore = CHECKMATE
             for move in legalmovesG:
-                if cgG.board.is_stalemate():
-                    maxScore = 0
-                    return maxScore
                 cgG.makeMove(move)
-                nextMoves = cgG.removePromotion(cgG.legalMoves())
+                nextMoves = cgG.legalMoves()
                 score = self.findMoveMinMax(cgG, nextMoves, depth - 1, not whiteToMove)
                 if score < minScore:
                     minScore = score
