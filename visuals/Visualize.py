@@ -103,6 +103,7 @@ def highlightCheck(screen, cgG):
 def rungame():
     global WHOAMI
     cg = ChessGame()
+    print(cg.translate(cg.board))
     pg.init()
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     pg.display.set_caption('LC0')
