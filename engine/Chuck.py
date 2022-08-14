@@ -10,7 +10,7 @@ class Chuck:
         self.DEPTH = 2
     def makeMove(self):
         #move = self.bestMove()
-        move = self.findBestMoveMinMax(self.cg, self.cg.legalMoves())
+        move = self.findBestMove(self.cg, self.cg.legalMoves())
         if move == None:
             return self.randomMove() 
         return move
@@ -60,10 +60,11 @@ class Chuck:
             self.cg.board.pop()
         return bestPlayerMove
 
-    def findBestMoveMinMax(self, cgG, legalmovesG):
+    def findBestMove(self, cgG, legalmovesG):
         global nextMove
         nextMove = None
-        self.findMoveMinMax(cgG, legalmovesG, self.DEPTH, cgG.whiteToMove)
+        #self.findMoveMinMax(cgG, legalmovesG, self.DEPTH, cgG.whiteToMove)
+        self.findMoveNegaMax(cgG, legalmovesG, self.DEPTH, 1 if cgG.whiteToMove else -1)
         return nextMove
 
     def findMoveMinMax(self, cgG, legalmovesG, depth, whiteToMove):
@@ -97,10 +98,28 @@ class Chuck:
                         nextMove = move
                 cgG.undoMove()
             return minScore
-    def scoreBoard(cgG):
+
+    def findMoveNegaMax(self, cgG, legalmovesG, depth, turnMultiplier):
+        global nextMove
         CHECKMATE = 1000
         STALEMATE = 0
-        turnMultiplier = 1 if cgG.whiteToMove else -1
+        if depth == 0:
+            return turnMultiplier * self.scoreBoard(cgG)
+        maxScore = -CHECKMATE
+        for move in legalmovesG :
+            cgG.makeMove(move)
+            nextMoves = cgG.legalMoves()
+            score = - self.findMoveNegaMax(cgG, nextMoves, depth - 1, -turnMultiplier)
+            if score > maxScore:
+                maxScore = score
+                if depth == self.DEPTH:
+                    nextMove = move
+            cgG.undoMove()
+        return maxScore
+
+    def scoreBoard(self, cgG):
+        CHECKMATE = 1000
+        STALEMATE = 0
         if cgG.board.is_checkmate():
             if cgG.whiteToMove:
                 return -CHECKMATE
