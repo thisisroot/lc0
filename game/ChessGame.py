@@ -1,17 +1,18 @@
 import random
 from turtle import position
 import chess
+import numpy
 
 class ChessGame:
-
+    
     ranksToRow = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2, "7":1, "8":0}
     rowsToRanks = {v:k for k, v in ranksToRow.items()}
     filesToCols = {"a":0, "b": 1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
     colsToFiles = {v:k for k, v in filesToCols.items()}
 
     def __init__(self):
-        #self.board = chess.Board()
-        self.board = chess.Board("8/8/8/8/8/4K2p/4N2k/8 w KQkq - 0 4")
+        self.board = chess.Board()
+        #self.board = chess.Board("8/8/8/8/8/4K2p/4N2k/8 w KQkq - 0 4")
         self.whiteToMove = True
         self.gameIsOn = True
         self.checkmate = False
@@ -20,11 +21,11 @@ class ChessGame:
     def makeMove(self, move):
         if move in self.board.legal_moves:
             self.board.push(chess.Move.from_uci(str(move)))
-            if(self.whiteToMove):
-                print("White : " + str(move))
-            else : 
-                print("Black : " + str(move))
-            self.whiteToMove = not self.whiteToMove
+            #if(self.whiteToMove):
+                #print("White : " + str(move))
+            #else : 
+                #print("Black : " + str(move))
+            #self.whiteToMove = not self.whiteToMove
             return self.board
 
     def undoMove(self):
@@ -116,6 +117,81 @@ class ChessGame:
         row = {"1":0, "2":1, "3":2, "4":3,"5":4, "6":5, "7":6, "8":7}
         col = {"a":0, "b": 1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
         return (row[s[1]] * 8) + col[s[0]]
+    
+    def printTheBoard(self,board):
+        for i in range(8):
+            for j in range(8):
+                print(str(board[i][j]), end=' ')
+            print("\n")
+    
+    #https://colab.research.google.com/drive/1GSeBQdyZH_nHvl52XW0uhXV3Cslho24O#scrollTo=tAFSOFc8pJf8
+    
+    def square_to_index(self, square):
+            
+        squares_index = {
+        'a': 0,
+        'b': 1,
+        'c': 2,
+        'd': 3,
+        'e': 4,
+        'f': 5,
+        'g': 6,
+        'h': 7}
+        letter = chess.square_name(square)
+        return 8 - int(letter[1]), squares_index[letter[0]]
+    def translate(self, board):
+        # this is the 3d matrix
+        board3d = numpy.zeros((14, 8, 8), dtype=numpy.int8)
+
+        # here we add the pieces's view on the matrix
+        for piece in chess.PIECE_TYPES:
+            for square in board.pieces(piece, chess.WHITE):
+                idx = numpy.unravel_index(square, (8, 8))
+                board3d[piece - 1][7 - idx[0]][idx[1]] = 1
+            for square in board.pieces(piece, chess.BLACK):
+                idx = numpy.unravel_index(square, (8, 8))
+                board3d[piece + 5][7 - idx[0]][idx[1]] = 1
+
+        # add attacks and valid moves too
+        # so the network knows what is being attacked
+        aux = board.turn
+        board.turn = chess.WHITE
+        for move in board.legal_moves:
+            i, j = self.square_to_index(move.to_square)
+            board3d[12][i][j] = 1
+        board.turn = chess.BLACK
+        for move in board.legal_moves:
+            i, j = self.square_to_index(move.to_square)
+            board3d[13][i][j] = 1
+        board.turn = aux
+        
+        return board3d
+
+    def pieceToBinary(self, p):
+        output = []
+        board = self.boardToList()
+        for row in board:
+            temp = []
+            for square in row:
+                if square == '.':
+                    temp.append(0)
+                elif square == p:
+                    temp.append(1)
+                else:
+                    temp.append(0)
+            output.append(temp)
+        return output
+    
+    def movesToBinary(self, whoAmI):
+        color = chess.WHITE if whoAmI else chess.BLACK
+        temp = []
+        for i in range(64):
+            if(chess.Board.is_attacked_by(color, i)):
+                temp.append(1)
+            else:
+                temp.append(0)
+        pass
+                
 
 class Move():
     ranksToRow = {"1":7, "2":6, "3":5, "4":4,"5":3, "6":2, "7":1, "8":0}
