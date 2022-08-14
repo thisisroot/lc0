@@ -10,8 +10,8 @@ class ChessGame:
     colsToFiles = {v:k for k, v in filesToCols.items()}
 
     def __init__(self):
-        self.board = chess.Board()
-        #self.board = chess.Board("8/8/8/8/8/4K2p/4N2k/8 w KQkq - 0 4")
+        #self.board = chess.Board()
+        self.board = chess.Board("8/8/8/8/8/4K2p/4N2k/8 w KQkq - 0 4")
         self.whiteToMove = True
         self.gameIsOn = True
         self.checkmate = False

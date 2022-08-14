@@ -7,7 +7,7 @@ class Chuck:
         self.cg = cg
         self.board = cg.board
         self.whoAmI = whoAmI
-        self.DEPTH = 2
+        self.DEPTH = 14
     def makeMove(self):
         #move = self.bestMove()
         move = self.findBestMove(self.cg, self.cg.legalMoves())
@@ -61,15 +61,18 @@ class Chuck:
         return bestPlayerMove
 
     def findBestMove(self, cgG, legalmovesG):
-        global nextMove
+        CHECKMATE = 1000
+        global nextMove, c
         nextMove = None
+        c = 0
         #self.findMoveMinMax(cgG, legalmovesG, self.DEPTH, cgG.whiteToMove)
-        self.findMoveNegaMax(cgG, legalmovesG, self.DEPTH, 1 if cgG.whiteToMove else -1)
+        #self.findMoveNegaMax(cgG, legalmovesG, self.DEPTH, 1 if cgG.whiteToMove else -1)
+        self.findMoveNegaMaxAlphaBeta(cgG, legalmovesG, self.DEPTH,-CHECKMATE, CHECKMATE, 1 if cgG.whiteToMove else -1)
+        print(c)
         return nextMove
 
     def findMoveMinMax(self, cgG, legalmovesG, depth, whiteToMove):
         CHECKMATE = 1000
-        STALEMATE = 0
         turnMultiplier = 1 if cgG.whiteToMove else -1
         global nextMove
         if depth == 0:
@@ -100,7 +103,8 @@ class Chuck:
             return minScore
 
     def findMoveNegaMax(self, cgG, legalmovesG, depth, turnMultiplier):
-        global nextMove
+        global nextMove, c
+        c += 1
         CHECKMATE = 1000
         STALEMATE = 0
         if depth == 0:
@@ -115,6 +119,29 @@ class Chuck:
                 if depth == self.DEPTH:
                     nextMove = move
             cgG.undoMove()
+        return maxScore
+
+    def findMoveNegaMaxAlphaBeta(self, cgG, legalmovesG, depth, alpha, beta, turnMultiplier):
+        global nextMove, c
+        c+=1
+        CHECKMATE = 1000
+        STALEMATE = 0
+        if depth == 0:
+            return turnMultiplier * self.scoreBoard(cgG)
+        maxScore = -CHECKMATE
+        for move in legalmovesG :
+            cgG.makeMove(move)
+            nextMoves = cgG.removePromotion(cgG.legalMoves())
+            score = - self.findMoveNegaMaxAlphaBeta(cgG, nextMoves, depth - 1, -beta, -alpha, -turnMultiplier)
+            if score > maxScore:
+                maxScore = score
+                if depth == self.DEPTH:
+                    nextMove = move
+            cgG.undoMove()
+            if maxScore > alpha:
+                alpha = maxScore
+            if alpha >= beta:
+                break
         return maxScore
 
     def scoreBoard(self, cgG):
