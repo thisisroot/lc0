@@ -89,6 +89,8 @@ def movesToList(moves):
                 c += 1
         else:
             output.append(moves[p:])
+    for i in range(len(str(c)) - 1):
+            output.pop()
     return output
 
 def set_piece_color(value, color):
@@ -159,7 +161,7 @@ def rungame():
     pg.display.set_icon(Icon)
     clock = pg.time.Clock()
     screen.fill(pg.Color("white"))
-    moveLogFont = pg.font.SysFont("Arial", 16, False, False)
+    moveLogFont = pg.font.SysFont("Arial", 14, False, False)
     Images()
     activeness = True
     sqSelect = ()
