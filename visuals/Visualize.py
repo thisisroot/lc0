@@ -63,6 +63,7 @@ def d_moveLog(screen, cg, font):
     lineSpacing = 2
     movesPerRow = 3
     moves = movesToList(board.variation_san([chess.Move.from_uci(m) for m in moveLog]))
+    print(moves)
     for i in range(0, len(moves), movesPerRow):
         text = ""
         for j in range(movesPerRow):
@@ -81,8 +82,8 @@ def movesToList(moves):
         if i+1 >= len(moves) and c == 2:
             output.append(moves)
             return output
-        if i+1 < len(moves):
-            if moves[i] == str(c) and moves[i+1] == ".":
+        if i+len(str(c)) < len(moves):
+            if moves[i:i+len(str(c))] == str(c) and moves[i+len(str(c))] == ".":
                 output.append(moves[p:i])
                 p = i
                 c += 1
