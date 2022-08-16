@@ -7,7 +7,7 @@ class Chuck:
         self.cg = cg
         self.board = cg.board
         self.whoAmI = whoAmI
-        self.DEPTH = 14
+        self.DEPTH = 2
     def makeMove(self):
         #move = self.bestMove()
         move = self.findBestMove(self.cg, self.cg.legalMoves())
@@ -68,7 +68,7 @@ class Chuck:
         #self.findMoveMinMax(cgG, legalmovesG, self.DEPTH, cgG.whiteToMove)
         #self.findMoveNegaMax(cgG, legalmovesG, self.DEPTH, 1 if cgG.whiteToMove else -1)
         self.findMoveNegaMaxAlphaBeta(cgG, legalmovesG, self.DEPTH,-CHECKMATE, CHECKMATE, 1 if cgG.whiteToMove else -1)
-        print(c)
+        #print(c)
         return nextMove
 
     def findMoveMinMax(self, cgG, legalmovesG, depth, whiteToMove):

@@ -11,26 +11,42 @@ class ChessGame:
     colsToFiles = {v:k for k, v in filesToCols.items()}
 
     def __init__(self):
-        #self.board = chess.Board()
-        self.board = chess.Board("8/8/8/8/8/4K2p/4N2k/8 w KQkq - 0 4")
+        self.board = chess.Board()
+        #self.board = chess.Board("8/8/8/8/8/4K2p/4N2k/8 w KQkq - 0 4")
         self.whiteToMove = True
         self.gameIsOn = True
         self.checkmate = False
         self.stalemate = False
+        self.moveLog = []
 
-    def makeMove(self, move):
+    def makeMove(self, move, log = False):
         if move in self.board.legal_moves:
             self.board.push(chess.Move.from_uci(str(move)))
-            #if(self.whiteToMove):
-                #print("White : " + str(move))
-            #else : 
-                #print("Black : " + str(move))
-            #self.whiteToMove = not self.whiteToMove
+            if log:
+                self.moveLog.append(str(move))
+                #self.moveLog.append(self.board.san(chess.Move(self.getSqNumber(str(move)[:2]), self.getSqNumber(str(move)[2:4]))))
+                if(self.whiteToMove):
+                    print("White : " + str(move))
+                else : 
+                    print("Black : " + str(move))
+            self.whiteToMove = not self.whiteToMove
             return self.board
+
+    def getMoveLog(self):
+        return self.moveLog
+
+    def getSANNotation(self, move, board):
+        return str(chess.Board.parse_san(move))
+
+    def undoMoveWithLog(self):
+        self.moveLog.pop()
+        self.board.pop()
+        self.whiteToMove = not self.whiteToMove
 
     def undoMove(self):
         self.board.pop()
         self.whiteToMove = not self.whiteToMove
+
     def isGameOver(self):
         if self.checkmate or self.stalemate:
             self.gameIsOn = False

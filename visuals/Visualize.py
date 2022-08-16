@@ -1,3 +1,6 @@
+from cgitb import text
+import os
+import sys
 from tkinter import *
 from tkinter import messagebox
 import chess
@@ -9,8 +12,9 @@ from engine.Chuck import Chuck
 import pygame as pg
 
 
-HEIGHT = 512
-WIDTH = HEIGHT * 1.5
+WIDTH = HEIGHT = 512
+MOVE_LOG_PANEL_WIDTH = 300
+MOVE_LOG_PANEL_HEIGHT = 512
 DIMENSION = 8
 SQ_SIZE = HEIGHT // DIMENSION
 MAX_FPS = 15
@@ -27,11 +31,12 @@ def Images():
 
 
 
-def d_game_state(cg, screen, board, sqSelected):
+def d_game_state(cg, screen, board, sqSelected, moveLogFont):
     d_board(screen)
     highlightSquares(screen, cg, sqSelected)
     highlightCheck(screen, cg)
     d_piece(screen, board)
+    d_moveLog(screen, cg, moveLogFont)
     
 def d_board(screen):
     colors = [pg.Color("white"), pg.Color("gray")]
@@ -49,11 +54,53 @@ def d_piece(screen, board):
             if piece != '.':
                 screen.blit(IMAGES[piece], pg.Rect(column*SQ_SIZE, row*SQ_SIZE, SQ_SIZE, SQ_SIZE))
 
+def d_moveLog(screen, cg, font):
+    board = chess.Board()
+    moveLogRect = pg.Rect(WIDTH, 0, MOVE_LOG_PANEL_WIDTH, MOVE_LOG_PANEL_HEIGHT)
+    pg.draw.rect(screen, pg.Color("black"), moveLogRect)
+    moveLog = cg.getMoveLog()
+    textY = 5
+    lineSpacing = 2
+    movesPerRow = 3
+    moves = movesToList(board.variation_san([chess.Move.from_uci(m) for m in moveLog]))
+    for i in range(0, len(moves), movesPerRow):
+        text = ""
+        for j in range(movesPerRow):
+            if i + j < len(moves):
+                text += moves[i+j] + " "
+        textObj = font.render(text ,True , pg.Color("gray"))
+        textLocation = moveLogRect.move(5, textY)
+        screen.blit(textObj, textLocation)
+        textY += textObj.get_height() + lineSpacing
+
+def movesToList(moves):
+    p = 0
+    c = 2
+    output = []
+    for i in range(len(moves)):
+        if i+1 >= len(moves) and c == 2:
+            output.append(moves)
+            return output
+        if i+1 < len(moves):
+            if moves[i] == str(c) and moves[i+1] == ".":
+                output.append(moves[p:i])
+                p = i
+                c += 1
+        else:
+            output.append(moves[p:])
+    return output
+
 def set_piece_color(value, color):
     global WHOAMI
     WHOAMI = color
     print(WHOAMI)
     return WHOAMI
+
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+def enablePrint():
+    sys.stdout = sys.__stdout__
 
 def menu():
     pg.init()
@@ -103,14 +150,15 @@ def highlightCheck(screen, cgG):
 def rungame():
     global WHOAMI
     cg = ChessGame()
-    print(cg.translate(cg.board))
+    #print(cg.translate(cg.board))
     pg.init()
-    screen = pg.display.set_mode((WIDTH, HEIGHT))
+    screen = pg.display.set_mode((WIDTH + MOVE_LOG_PANEL_WIDTH, HEIGHT))
     pg.display.set_caption('LC0')
     Icon = pg.image.load('images/logo.png')
     pg.display.set_icon(Icon)
     clock = pg.time.Clock()
     screen.fill(pg.Color("white"))
+    moveLogFont = pg.font.SysFont("Arial", 16, False, False)
     Images()
     activeness = True
     sqSelect = ()
@@ -130,7 +178,7 @@ def rungame():
             break
         if cg.whiteToMove == WHOAMI:
             lc = Chuck(cg, WHOAMI)
-            cg.makeMove(lc.makeMove())
+            cg.makeMove(lc.makeMove(), log=True)
         for e in pg.event.get():
             if e.type == pg.QUIT:
                 activeness = False
@@ -142,10 +190,10 @@ def rungame():
                 loc = pg.mouse.get_pos()
                 column = loc[0] // SQ_SIZE
                 row = loc[1] // SQ_SIZE
-                if len(usrClick) == 0 and cg.boardToList()[row][column] == ".":
+                if sqSelect == (row, column) or column >= 8:
                     sqSelect = ()
                     usrClick = []
-                elif sqSelect == (row, column):
+                elif len(usrClick) == 0 and cg.boardToList()[row][column] == ".":
                     sqSelect = ()
                     usrClick = []
                 else:
@@ -159,18 +207,18 @@ def rungame():
                     for i in movesofP:
                         if i == m+'q':
                             m = i
-                    cg.makeMove(chess.Move.from_uci(m))
+                    cg.makeMove(chess.Move.from_uci(m), log=True)
                     sqSelect = ()
                     usrClick = []
             elif e.type == pg.KEYDOWN:
                 if e.key == pg.K_z:
-                    cg.undoMove()
-                    cg.undoMove()
+                    cg.undoMoveWithLog()
+                    cg.undoMoveWithLog()
                 elif e.key == pg.K_r:
                     cg = ChessGame()
                     sqSelect = ()
                     usrClick = [] 
-        d_game_state(cg, screen, cg.boardToList(), sqSelect)
+        d_game_state(cg, screen, cg.boardToList(), sqSelect, moveLogFont)
         clock.tick(MAX_FPS)
         pg.display.flip()
     pg.quit()
