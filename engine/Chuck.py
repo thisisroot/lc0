@@ -1,6 +1,7 @@
 import chess
 import random
-
+import chess.engine
+import os
 class Chuck:
 
     def __init__(self, cg, whoAmI):
@@ -10,12 +11,19 @@ class Chuck:
         self.DEPTH = 2
     def makeMove(self):
         #move = self.bestMove()
-        move = self.findBestMove(self.cg, self.cg.legalMoves())
+        #move = self.findBestMove(self.cg, self.cg.legalMoves())
+        move = self.stockfish()
         if move == None:
             return self.randomMove() 
         return move
         #return self.randomMove()
 
+    def stockfish(self):
+        path = os.getcwd()
+        engine = chess.engine.SimpleEngine.popen_uci(path + "\\engine\\stockfish_15\\stockfish_15_x64_avx2.exe")
+        result = engine.play(self.board, chess.engine.Limit(time=1))
+        return result.move
+    
     def randomMove(self):
         moves = self.cg.legalMoves()
         if len(moves) != 0:
